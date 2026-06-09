@@ -4,7 +4,7 @@ library(networkD3)
 library(htmlwidgets)
 
 # ══════════════════════════════════════════════════════════════
-#  CONFIGURACIÓN — edita solo esta sección
+#  CONFIGURACIÓN 
 # ══════════════════════════════════════════════════════════════
 
 COLORES <- c(
@@ -137,7 +137,7 @@ nodos_df <- conteo_nodos %>%
   arrange(Nivel, Especie) %>%
   mutate(
     Label = paste0(Especie, " (n=", n, ")"),             # Texto visible (con espacios)
-    GrupoColor = str_replace(Especie, " ", "_"),         # TRUCO: Sin espacios para la librería
+    GrupoColor = str_replace(Especie, " ", "_"),         
     id    = row_number() - 1L
   )
 
@@ -155,7 +155,6 @@ links_df <- flujos %>%
 #  COLORES
 # ══════════════════════════════════════════════════════════════
 
-# Adaptamos los nombres del diccionario quitando los espacios también
 nombres_sin_espacio <- str_replace(names(COLORES), " ", "_")
 
 color_js <- paste0(
@@ -175,7 +174,7 @@ sankey <- sankeyNetwork(
   Target       = "target",
   Value        = "value",
   NodeID       = "Label",
-  NodeGroup    = "GrupoColor",    # <--- La librería leerá "K._pneumoniae" y no recortará nada
+  NodeGroup    = "GrupoColor",    
   colourScale  = color_js,
   fontSize     = TAMANO_TEXTO,
   fontFamily   = FUENTE,
